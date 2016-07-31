@@ -10,3 +10,10 @@ What we have here in short form:
 - **ffv-sfc-fjfmonitor.lua:** A script that monitors RAM for the RPGe 1.1 Final Fantasy V ROM and writes party levels, jobs, and abilities to a file
 - **ffv-gba-fjfmonitor.lua:** A script that monitors RAM for the GBA Final Fantasy V Advance ROM and writes party levels, jobs, and abilities to a file
 - **super-mario-land-autosplitter.lua:** A script that splits for you during Super Mario Land (GB) runs. Requires modifying Bizhawk's Lua
+
+## A Note on Bizhawk's Lua and some scripts
+Some of my scripts note requiring LuaSocket, or another Lua lib. Unfortunately installing support for this is non-trivial because of the way Bizhawk packages Lua. If you're looking for help on this I'll point you to [this StackOverflow response](http://stackoverflow.com/questions/33428382/add-luasocket-to-program-bizhawk-shipped-with-own-lua-environment/33472332#33472332) to get you started.
+
+In short, you need to grab the LuaSockets windows distributable ZIP and extract it in the way that post lays out.
+
+It is worth noting: This will fundamentally change the way Bizhawk handles Lua and may cause crashes. It's been fine for me but YMMV. Don't come running to me if you blow up Bizhawk doing this :)
