@@ -1,4 +1,4 @@
--- Cool Spot autosplitter for LiveSplit
+-- Cool Spot (SNES) autosplitter for LiveSplit
 -- Trysdyn Black, 2017 https://github.com/trysdyn/bizhawk-speedrun-lua
 -- Requires LiveSplit. LiveSplit server, and LuaSocket
 
