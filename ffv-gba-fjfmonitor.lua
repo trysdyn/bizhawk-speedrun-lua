@@ -16,9 +16,9 @@ filename = os.getenv("HOMEDRIVE") ..
 
 -- Addresses we check each frame
 -- These are the job, ability, level, and job level of each of the 4 party slots, in order
-addrs = {0x200DABD, 0x200DADE, 0x200DABE, 0x200DB01, 0x200DB21, 0x200DB42,
-         0x200DB22, 0x200DB65, 0x200DB85, 0x200DBA6, 0x200DB86, 0x200DBC9,
-         0x200DBE9, 0x200DC0A, 0x200DBEA, 0x200DC2D}
+addrs = {0x200DABD, 0x200DADE, 0x200DABE, 0x200DB00, 0x200DB21, 0x200DB42,
+         0x200DB22, 0x200DB64, 0x200DB85, 0x200DBA6, 0x200DB86, 0x200DBC8,
+         0x200DBE9, 0x200DC0A, 0x200DBEA, 0x200DC2C}
 
 -- The state of the above addresses last frame
 old_data = {}
