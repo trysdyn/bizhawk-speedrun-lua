@@ -9,11 +9,14 @@ What we have here in short form:
 - **timer.lua:** A very simple low-precision timer that turns the emu frame count into human-readable times.
 - **ffv-sfc-fjfmonitor.lua:** A script that monitors RAM for the RPGe 1.1 Final Fantasy V ROM and writes party levels, jobs, and abilities to a file
 - **ffv-gba-fjfmonitor.lua:** A script that monitors RAM for the GBA Final Fantasy V Advance ROM and writes party levels, jobs, and abilities to a file
-- **super-mario-land-autosplitter.lua:** A script that splits for you during Super Mario Land (GB) runs. Requires modifying Bizhawk's Lua
+- **cool-spot-autosplitter.lua:** A script that splits for you during SNES Cool Spot runs, though you have to do the final split yourself currently
+- **hachiemon-autosplitter.lua:** A script that splits for you during Hachiemon runs, though you have to do the final split yourself currently
+- **hopapbout-autosplitter.lua:** A script that splits for you during Monster Rancher Hop-A-Bout runs though you have to do the starting and final splits yourself currently
+- **super-mario-land-autosplitter.lua:** A script that splits for you during Super Mario Land (GB) runs
 
-## A Note on Bizhawk's Lua and some scripts
-Some of my scripts note requiring LuaSocket, or another Lua lib. Unfortunately installing support for this is non-trivial because of the way Bizhawk packages Lua. If you're looking for help on this I'll point you to [this StackOverflow response](http://stackoverflow.com/questions/33428382/add-luasocket-to-program-bizhawk-shipped-with-own-lua-environment/33472332#33472332) to get you started.
+## Autosplitters, Bizhawk, and LiveSplit
+My autosplitters used to use LuaSocket and LiveSplit Server. Current versions no longer require this but do require LiveSplit version 1.7. If these scripts refuse to talk to LiveSplit, please make sure your version is up to date.
 
-In short, you need to grab the LuaSockets windows distributable ZIP and extract it in the way that post lays out.
+Most of my autosplitters have some missing feature I need to add in the future like the final split (which is usually different logic than other splits). They work for me, though, and I probably won't bother unless someone really really wants me to.
 
-It is worth noting: This will fundamentally change the way Bizhawk handles Lua and may cause crashes. It's been fine for me but YMMV. Don't come running to me if you blow up Bizhawk doing this :)
+It is recommended that you reset with "Reboot Core" in Bizhawk to make sure these autosplitters reset their state properly between attempts, but they have all been tested to work with Soft Reset as well; just make sure you're careful not to save a set of splits the autosplitter has interfered with in a way you don't want.

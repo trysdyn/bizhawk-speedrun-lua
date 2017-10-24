@@ -1,13 +1,27 @@
 -- Super Mario Land autosplitter for LiveSplit
 -- Trysdyn Black, 2016 https://github.com/trysdyn/bizhawk-speedrun-lua
--- Requires LiveSplit. LiveSplit server, and LuaSocket
-
+-- Requires LiveSplit 1.7+
 
 world = -1
 stage = -1
 boss = false
 
-function next_stage()
+local function init_livesplit()
+    pipe_handle = io.open("//./pipe/LiveSplit", 'a')
+
+    if not pipe_handle then
+        error("\nFailed to open LiveSplit named pipe!\n" ..
+              "Please make sure LiveSplit is running and is at least 1.7, " ..
+              "then load this script again")
+    end
+
+    pipe_handle:write("reset\r\n")
+    pipe_handle:flush()
+
+    return pipe_handle
+end
+
+local function next_stage()
     -- When the stage changes, we want to check if it's time to split.
     -- This function checks what stage we just moved into, and does the
     -- needful based on that.
@@ -29,20 +43,23 @@ function next_stage()
 
     -- Title screen is "0-0". Reset on this
     if stage == 0 then
-        s:send("reset\r\n")
+        pipe_handle:write("reset\r\n")
+        pipe_handle:flush()
     -- 1-1 is the start so start timer here
     elseif stage == 1 and world == 1 then
-        s:send("starttimer\r\n")
+        pipe_handle:write("starttimer\r\n")
+        pipe_handle:flush()
     -- 44-44 is an "Interim" stage. Discard it
     elseif stage == 44 then
 
     -- In any other case, split
     else
-        s:send("split\r\n")
+        pipe_handle:write("split\r\n")
+        pipe_handle:flush()
     end
 end
 
-function final_split()
+local function final_split()
     -- d10c is the boss HP but it's used by a ton of other stuff
     -- 216 is the boss initial HP, and seems to never show up otherwise
     -- So if d10c is 216, we start considering it boss HP and split when
@@ -57,28 +74,14 @@ function final_split()
     -- If the boss flag is on and 0xD10C becomes 0, we just finished the game
     -- so split :)
     if d10c == 0 and boss == true then
-        s:send("split\r\n")
+        pipe_handle:write("split\r\n")
+        pipe_handle:flush()
         boss = false
     end
 end
 
--- Giving myself props. Feel free to remove this if it bothers you.
-console.log("Autosplitter for LiveSplit.")
-console.log("Trysdyn Black, 2016")
-console.log()
-
-local socket = require("socket.core")
-
 -- Set up our TCP socket to LiveSplit and send a reset to be sure
-s = socket:tcp()
-if s:connect("127.0.0.1", 16834) == nil then
-    console.log("ERR: Failed to connect to LiveSplit")
-    console.log("Make sure LiveSplit's server component is running and Restart")
-else
-    console.log("Connected to LiveSplit, ready to go")
-end
-
-s:send("reset\r\n")
+pipe_handle = init_livesplit()
 
 -- Set our memory domain for memory grabs in next_stage()
 -- "System Bus" exposes the entire memory map: VRAM, WRAM, ROM, etc.
@@ -90,8 +93,7 @@ memory.usememorydomain("System Bus")
 event.onmemorywrite(next_stage, 0x982E)
 event.onmemorywrite(final_split, 0xD10C)
 
--- Bizhawk Lua requires the script to busy-loop or it'll exit and the handlers
--- will de-register. This is dumb :(
+-- Bizhawk Lua requires the script to busy-loop or it'll exit
 while true do
     emu.frameadvance()
 end
