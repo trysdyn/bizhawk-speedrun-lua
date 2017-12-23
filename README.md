@@ -13,6 +13,7 @@ What we have here in short form:
 - **hachiemon-autosplitter.lua:** A script that splits for you during Hachiemon runs, though you have to do the final split yourself currently
 - **hopapbout-autosplitter.lua:** A script that splits for you during Monster Rancher Hop-A-Bout runs though you have to do the starting and final splits yourself currently
 - **super-mario-land-autosplitter.lua:** A script that splits for you during Super Mario Land (GB) runs
+- **neugier-info.lua:** Small info display script for Neugier (SNES)
 
 ## Autosplitters, Bizhawk, and LiveSplit
 My autosplitters used to use LuaSocket and LiveSplit Server. Current versions no longer require this but do require LiveSplit version 1.7. If these scripts refuse to talk to LiveSplit, please make sure your version is up to date.
